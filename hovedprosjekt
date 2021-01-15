@@ -1,0 +1,106 @@
+#kode for brett
+
+brett = {'7': ' ' , '8': ' ' , '9': ' ' ,
+            '4': ' ' , '5': ' ' , '6': ' ' ,
+            '1': ' ' , '2': ' ' , '3': ' ' }
+
+brett_keys = []
+
+for key in brett:
+    brett_keys.append(key)
+
+
+def printBrett(brett):
+    print(brett['7'] + '|' + brett['8'] + '|' + brett['9'])
+    print('-+-+-')
+    print(brett['4'] + '|' + brett['5'] + '|' + brett['6'])
+    print('-+-+-')
+    print(brett['1'] + '|' + brett['2'] + '|' + brett['3'])
+
+
+
+# kode for spillet.
+def game():
+
+    turn = 'X'
+    count = 0
+
+
+    for i in range(10):
+        printBrett(brett)
+        print("Det er din tur, " + turn + ". Hvor vil du plassere?")
+
+        move = input()        
+
+        if brett[move] == ' ':
+            brett[move] = turn
+            count += 1
+        else:
+            print("den plassen er allerede tatt")
+            continue
+
+        # nå må vi se hvem som vinner etter 5 trekk 
+        if count >= 5:
+            if brett['7'] == brett['8'] == brett['9'] != ' ': # øverste rekke
+                printBrett(brett)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " vant. ****")                
+                break
+            elif brett['4'] == brett['5'] == brett['6'] != ' ': # midten
+                printBrett(brett)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " vant. ****")
+                break
+            elif brett['1'] == brett['2'] == brett['3'] != ' ': # nederste rekke
+                printBrett(brett)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " vant. ****")
+                break
+            elif brett['1'] == brett['4'] == brett['7'] != ' ': # venstre rekke
+                printBrett(brett)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " vant. ****")
+                break
+            elif brett['2'] == brett['5'] == brett['8'] != ' ': # midten nedover
+                printBrett(brett)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " vant. ****")
+                break
+            elif brett['3'] == brett['6'] == brett['9'] != ' ': # høyre rekke
+                printBrett(brett)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " vant. ****")
+                break 
+            elif brett['7'] == brett['5'] == brett['3'] != ' ': # diagonalt
+                printBrett(brett)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " vant. ****")
+                break
+            elif brett['1'] == brett['5'] == brett['9'] != ' ': # diagonalt
+                printBrett(brett)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " vant. ****")
+                break 
+
+        # hvis ikke X eller O vant, da blir det likt.
+        if count == 9:
+            print("\nGame Over.\n")                
+            print("det ble likt!!")
+
+        # vi må skifte spiller etter hvert trekk
+        if turn =='X':
+            turn = 'O'
+        else:
+            turn = 'X'        
+    
+    # vi må spørre om spilleren/e vil starte på nytt, hvis det ble likt f.eks
+    restart = input("vil du/dere spille igjen?(ja/nei)")
+    if restart == "ja" or restart == "nei":  
+        for key in brett_keys:
+            brett[key] = " "
+
+        game()
+
+if __name__ == "__main__":
+    game()
+    
